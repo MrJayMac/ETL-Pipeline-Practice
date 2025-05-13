@@ -7,6 +7,6 @@ CREATE TABLE news_articles (
     title TEXT,
     description TEXT,
     content TEXT,
-    url VARCHAR(255),
+    url TEXT,
     published_at TIMESTAMP
 );
