@@ -7,6 +7,7 @@ A collection of ETL (Extract, Transform, Load) pipeline projects for various dat
 - [COVID-ETL-Pipeline](./COVID-ETL-Pipeline): Processes COVID-19 statistics from public APIs
 - [Climate-Trend-ETL](./Climate-Trend-ETL): Processes weather forecast data for climate trend analysis
 - [News-Aggregator-ETL](./News-Aggregator-ETL): Processes new article data from News API
+- [Sales-ETL-Dashboard](./Sales-ETL-Dashboard): ETL pipeline loading sales data into SQLite with a FastAPI dashboard
 
 ## Common Technologies
 

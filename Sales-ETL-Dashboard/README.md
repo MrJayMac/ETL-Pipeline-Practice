@@ -9,7 +9,7 @@ An intermediate-level ETL pipeline with a simple analytics dashboard.
 ## Project structure
 
 ```
-intermediate-etl-dashboard/
+Sales-etl-dashboard/
 ├─ app/
 │  ├─ __init__.py
 │  ├─ main.py
@@ -73,3 +73,11 @@ You can override defaults using environment variables (create a `.env` based on 
 - The ETL reads the sample CSV at `data/raw/sales.csv`, cleans it, computes daily metrics, and loads two tables into SQLite: `sales` and `daily_metrics`.
 - The dashboard queries those tables to display daily revenue and top products.
 - Modify the CSV or extend the transforms to fit your needs.
+
+
+# Startup
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python -m etl.pipeline          # populate data/warehouse/etl.db
+uvicorn app.main:app --reload   # open http://127.0.0.1:8000
