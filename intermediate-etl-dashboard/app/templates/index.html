@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="cards">
+  <div class="card">
+    <h3>Total Revenue</h3>
+    <p class="metric">${{ '%.2f'|format(values|sum) }}</p>
+  </div>
+  <div class="card">
+    <h3>Days Covered</h3>
+    <p class="metric">{{ labels|length }}</p>
+  </div>
+</section>
+
+<section>
+  <h2>Daily Revenue</h2>
+  <canvas id="revenueChart" height="100"></canvas>
+</section>
+
+<section>
+  <h2>Top Products</h2>
+  <table class="table">
+    <thead>
+      <tr><th>Product</th><th>Quantity</th><th>Revenue</th></tr>
+    </thead>
+    <tbody>
+      {% for row in top_products %}
+      <tr>
+        <td>{{ row.product }}</td>
+        <td>{{ row.total_qty }}</td>
+        <td>${{ '%.2f'|format(row.total_rev) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script id="chart-data" type="application/json">{{ chart_json | safe }}</script>
+<script>
+  const dataEl = document.getElementById('chart-data');
+  const data = JSON.parse(dataEl.textContent);
+  const labels = data.labels;
+  const values = data.values;
+  const ctx = document.getElementById('revenueChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Revenue ($)',
+        data: values,
+        fill: true,
+        borderColor: '#2563eb',
+        backgroundColor: 'rgba(37, 99, 235, 0.15)',
+        tension: 0.25
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+{% endblock %}
